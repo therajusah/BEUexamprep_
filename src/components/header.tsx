@@ -18,60 +18,69 @@ export default function Header() {
             <nav aria-label="Global">
               <ul className="flex items-center gap-6 text-sm font-semibold">
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                     href="/notes"
                   >
                     Notes
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                     href="/pyqs"
                   >
                     PYQs
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                     href="/blogs"
                   >
                     Blogs
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                     href="/coding-practice"
                   >
                     Coding Practice
-                  </a>
+                  </Link>
                 </li>
+                <li>
+                  <Link
+                    className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/"
+                    href="https://you-prep.vercel.app/"
+                  >
+                    AI Interview <sup className="italic">new</sup>
+                  </Link>
+                </li>
+
               </ul>
             </nav>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
-              <a
+              <Link
                 className="rounded-2xl bg-teal-600 px-3 py-2.5 text-sm font-medium text-white shadow-sm dark:hover:bg-teal-500   !bg-gradient-to-r from-blue-500 to-teal-400 "
                 href="/sign-in"
               >
                 Sign In
-              </a>
+              </Link>
 
               <div className="hidden sm:flex">
-                <a
+                <Link
                   className="rounded-2xl bg-gray-100 px-3 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
                   href="/sign-up"
                 >
                   Sign Up
-                </a>
+                </Link>
               </div>
             </div>
 
