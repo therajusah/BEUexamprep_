@@ -31,8 +31,11 @@ const AuthForm = ({ type }: { type: FormType }) => {
   });
 
   const checkToken = () => {
-    const token =localStorage.getItem("token");
-    if (token) { router.push("/"); 
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      if (token) {
+        router.push("/");
+      }
     }
   };
 
@@ -72,6 +75,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
       setLoading(false);
     }
   };
+
+  
 
   const isSignIn = type === "sign-in";
 
