@@ -5,6 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import BranchSemesterSelect from "@/components/BranchsemesterSelect";
 
+
+interface Papers {
+  id: number;
+  subject: string;
+  branch: string;
+  semester: string;
+  file_url: string;
+}
+
 export default function PYQsPage() {
   const [branch, setBranch] = useState("");
   const [semester, setSemester] = useState("");
@@ -52,7 +61,7 @@ export default function PYQsPage() {
 
             {papers.length > 0 ? (
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
-                {papers.map((paper: any) => (
+                {papers.map((paper: Papers) => (
                   <Card key={paper.id}>
                     <CardHeader>
                       <CardTitle>{paper.subject}</CardTitle>
