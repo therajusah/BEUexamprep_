@@ -10,7 +10,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://prisma:prisma123@localhost:5432/prisma_db?schema=public"
+  url  = env("DATABASE_URL")
+  // "postgresql://prisma:prisma123@localhost:5432/prisma_db?schema=public"
 }
 
 
@@ -20,4 +21,14 @@ model User {
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+}
+
+
+model PdfUpload {
+  id        String   @id @default(cuid())
+  file_url  String
+  branch    String
+  semester  String
+  subject   String
+  uploaded_at DateTime @default(now())
 }
