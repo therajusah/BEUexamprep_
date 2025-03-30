@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
       },
       orderBy: { uploaded_at: "desc" },
     });
-
+    
     return NextResponse.json({ success: true, files });
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : "An unknown error occurred" }, { status: 500 });

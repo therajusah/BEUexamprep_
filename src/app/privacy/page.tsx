@@ -1,6 +1,6 @@
 export default function PrivacyPolicyPage() {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="flex items-center justify-center min-h-screen">
         <main className="w-full max-w-4xl p-6">
           <section className="w-full py-12 md:py-24 lg:py-32">
             <div className="container px-4 md:px-6">
@@ -52,7 +52,7 @@ export default function PrivacyPolicyPage() {
                   privacy@BEUexamprep.com
                 </p>
                 <p className="text-lg text-muted-foreground mt-8">
-                  Last Updated: Dec. 28, 2024
+                  Last Updated: March 25, 2025
                 </p>
               </div>
             </div>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import BranchSemesterSelect from "@/components/BranchsemesterSelect";
-
+import Link from "next/link";
 
 interface Papers {
   id: number;
@@ -42,21 +42,21 @@ export default function PYQsPage() {
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 flex items-center justify-center">
           <div className="container px-4 md:px-6">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl mb-8">
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl mb-8 text-gradient">
               Previous Year Questions (PYQs)
             </h1>
 
-            <div className="flex space-x-16">
-            <BranchSemesterSelect
-              branch={branch}
-              semester={semester}
-              onBranchChange={setBranch}
-              onSemesterChange={setSemester}
-            />
+            <div className="flex ">
+              <BranchSemesterSelect
+                branch={branch}
+                semester={semester}
+                onBranchChange={setBranch}
+                onSemesterChange={setSemester}
+              />
 
-            <Button className="w-full md:w-auto" onClick={fetchPapers}>
-              Search PYQs
-            </Button>
+              <Button className="md:w-auto" onClick={fetchPapers}>
+                Search PYQs
+              </Button>
             </div>
 
             {papers.length > 0 ? (
@@ -70,13 +70,13 @@ export default function PYQsPage() {
                       <p>Branch: {paper.branch}</p>
                       <p>Semester: {paper.semester}</p>
                       <Button className="mt-4" asChild>
-                        <a
+                        <Link
                           href={paper.file_url}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           Download PDF
-                        </a>
+                        </Link>
                       </Button>
                     </CardContent>
                   </Card>

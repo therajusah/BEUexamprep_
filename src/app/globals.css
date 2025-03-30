@@ -303,3 +303,11 @@
 .animate-blob {
   animation: blob-bounce 5s infinite ease-in-out;
 }
+
+
+/* for h1 text  */
+.text-gradient {
+  background: linear-gradient(to bottom, white, #d3d3d3);
+  -webkit-background-clip: text;
+  color: transparent;
+}

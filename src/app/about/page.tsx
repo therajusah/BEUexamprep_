@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex items-center justify-center min-h-screen">
       <main className="w-full max-w-4xl p-6">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
@@ -31,7 +31,7 @@ export default function AboutPage() {
                 Whether you&apos;re a freshman just starting your university journey or a senior preparing for your final exams, BEUexamprep is here to support you every step of the way. Join our community today and take your academic performance to the next level!
               </p>
               <div className="mt-8">
-                <Link href="/signup">
+                <Link href="/sign-up">
                   <Button size="lg">Get Started with BEUexamprep</Button>
                 </Link>
               </div>

@@ -1,9 +1,9 @@
-import { Github, GraduationCap, Heart, Linkedin, Mail, Twitter } from "lucide-react";
+import { Github, GraduationCap, Heart, Linkedin, Mail, X } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
   return (
-<footer className="relative bg-gray-900 text-white py-16 overflow-hidden">
+    <footer className="relative bg-gray-900 text-white py-16 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 w-[40] h-[400px] bg-blue-500 opacity-20 blur-[150px]"></div>
         <div className="absolute bottom-1/4 right-1/3 w-[40%] h-[300px] bg-indigo-500 opacity-20 blur-[120px]"></div>
@@ -19,14 +19,21 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-gray-400 leading-relaxed">
-              Empowering students to achieve their academic and career goals through comprehensive study resources.
+              Empowering students to achieve their academic and career goals
+              through comprehensive study resources.
             </p>
             <div className="flex space-x-4">
               {[
-                { icon: Github, href: "#" },
-                { icon: Linkedin, href: "#" },
-                { icon: Twitter, href: "#" },
-                { icon: Mail, href: "#" },
+                {
+                  icon: Github,
+                  href: "https://github.com/therajusah/BEUexamprep_",
+                },
+                {
+                  icon: Linkedin,
+                  href: "https://www.linkedin.com/in/therajusah",
+                },
+                { icon: X, href: "https://x.com/therajusah" },
+                { icon: Mail, href: "mailto:devraju0808@gmail.com" },
               ].map(({ icon: Icon, href }, index) => (
                 <Link key={index} href={href} className="group">
                   <Icon className="w-5 h-5 text-gray-400 group-hover:text-white transition duration-300 transform group-hover:scale-110" />
@@ -36,12 +43,23 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">Study Resources</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">
+              Study Resources
+            </h3>
             <ul className="space-y-3">
-              {["Notes Library", "Previous Year Papers", "Coding Practice", "Mock Tests", "Study Plans"].map((item, index) => (
+              {[
+                { text: "Notes Library", href: "/notes" },
+                { text: "Previous Year Papers", href: "/pyqs" },
+                { text: "Coding Practice", href: "/coding-practice" },
+                { text: "AI Interview", href: "https://you-prep.vercel.app/" },
+                { text: "Blogs", href: "/blogs" },
+              ].map((item, index) => (
                 <li key={index}>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                    {item}
+                  <Link
+                    href={item.href}
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    {item.text}
                   </Link>
                 </li>
               ))}
@@ -49,12 +67,23 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">
+              Quick Links
+            </h3>
             <ul className="space-y-3">
-              {["About Us", "Contact", "FAQs", "Privacy Policy", "Terms of Service"].map((item, index) => (
+              {[
+                { text: "About Us", href: "/about" },
+                { text: "Contact", href: "/contact" },
+                { text: "FAQs", href: "/faqs" },
+                { text: "Privacy Policy", href: "/privacy" },
+
+              ].map((item, index) => (
                 <li key={index}>
-                  <Link href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                    {item}
+                  <Link
+                    href={item.href}
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    {item.text}
                   </Link>
                 </li>
               ))}
@@ -62,8 +91,12 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">Newsletter</h3>
-            <p className="text-gray-400 mb-4">Stay updated with our latest resources and exam tips.</p>
+            <h3 className="text-lg font-semibold mb-4 text-white">
+              Newsletter
+            </h3>
+            <p className="text-gray-400 mb-4">
+              Stay updated with our latest resources and exam tips.
+            </p>
             <div className="space-y-4">
               <input
                 type="email"
@@ -79,7 +112,8 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-400">
-            © 2024 BEUexamprep. Made with <Heart className="w-4 h-4 inline-block text-red-500" /> for students
+            © 2025 BEUexamprep. Made with{" "}
+            <Heart className="w-4 h-4 inline-block text-red-500" /> for students
           </p>
         </div>
       </div>

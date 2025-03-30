@@ -62,12 +62,14 @@ export default function UploadPage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <BranchSemesterSelect
+            <div className="w-3xl">
+          <BranchSemesterSelect 
             branch={branch}
             semester={semester}
             onBranchChange={setBranch}
             onSemesterChange={setSemester}
           />
+          </div>
 
           <div className="mt-4">
             <Label htmlFor="subject" className="text-sm font-medium">

@@ -23,10 +23,10 @@ export default function BranchSemesterSelect({ branch, semester, onBranchChange,
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <Select onValueChange={onBranchChange} value={branch}>
-        <SelectTrigger>
+        <SelectTrigger className="w-sm">
           <SelectValue placeholder="Select Branch" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent >
           {branches.map((b) => (
             <SelectItem key={b} value={b}>
               {b}
