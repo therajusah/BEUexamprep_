@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface Brand {
   name: string;
@@ -40,9 +41,11 @@ export const BrandsGrid = ({
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className="flex items-center justify-center p-4 rounded-lg bg-white/70 dark:bg-background/50 border border-gray-200 dark:border-border hover:bg-blue-50 dark:hover:bg-accent/50 transition-colors duration-300"
             >
-              <img
+              <Image
                 src={brand.logo}
                 alt={brand.name}
+                width={100}
+                height={100}
                 className="h-12 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
               />
             </motion.div>
