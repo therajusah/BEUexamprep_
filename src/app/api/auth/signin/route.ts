@@ -12,11 +12,17 @@ export async function POST(req: Request) {
     if (!user) {
       return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
     }
+
+    // Check if user is admin
+    if (user.role !== "admin") {
+      return NextResponse.json({ success: false, message: "Access denied. Admin privileges required." }, { status: 403 });
+    }
+
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return NextResponse.json({ success: false, message: "Invalid credentials" }, { status: 401 });
     }
-    const token = sign({ userId: user.id, email: user.email }, SECRET_KEY, { expiresIn: "7d" });
+    const token = sign({ userId: user.id, email: user.email, role: user.role }, SECRET_KEY, { expiresIn: "7d" });
 
     return NextResponse.json({ success: true, token }, { status: 200 });
   } catch (error) {

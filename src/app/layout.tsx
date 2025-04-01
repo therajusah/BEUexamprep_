@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Mona_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import { NavBar } from "@/components/ui/tubelight-navbar";
+import { StackedCircularFooter } from "@/components/ui/stacked-circular-footer";
 
 const monasans = Mona_Sans({
   variable: "--font-mona-sans",
@@ -23,9 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${monasans.className} antialiased pattern`}>
-        <Header />
+        <NavBar />
         {children}
-        <Footer />
+        <StackedCircularFooter />
         <Toaster />
       </body>
     </html>

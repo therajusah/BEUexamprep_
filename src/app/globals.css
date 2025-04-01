@@ -300,8 +300,17 @@
   }
 }
 
+@keyframes grid {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
 .animate-blob {
   animation: blob-bounce 5s infinite ease-in-out;
+}
+
+.animate-grid {
+  animation: grid 15s linear infinite;
 }
 
 
@@ -309,5 +318,6 @@
 .text-gradient {
   background: linear-gradient(to bottom, white, #d3d3d3);
   -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }

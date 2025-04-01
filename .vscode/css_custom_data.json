@@ -1,0 +1,43 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@plugin",
+      "description": "Tailwind CSS plugin directive"
+    },
+    {
+      "name": "@custom-variant",
+      "description": "Tailwind CSS custom variant directive"
+    },
+    {
+      "name": "@theme",
+      "description": "Tailwind CSS theme configuration directive"
+    },
+    {
+      "name": "@apply",
+      "description": "Tailwind CSS apply directive for applying utility classes"
+    },
+    {
+      "name": "@utility",
+      "description": "Tailwind CSS utility directive for creating custom utilities"
+    },
+    {
+      "name": "@variant",
+      "description": "Tailwind CSS variant directive"
+    },
+    {
+      "name": "@responsive",
+      "description": "Tailwind CSS responsive directive"
+    },
+    {
+      "name": "@screen",
+      "description": "Tailwind CSS screen directive"
+    }
+  ],
+  "properties": [
+    {
+      "name": "-webkit-background-clip",
+      "description": "Webkit vendor prefix for background-clip property"
+    }
+  ]
+} 

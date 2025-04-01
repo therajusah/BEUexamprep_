@@ -31,8 +31,8 @@ export default function AboutPage() {
                 Whether you&apos;re a freshman just starting your university journey or a senior preparing for your final exams, BEUexamprep is here to support you every step of the way. Join our community today and take your academic performance to the next level!
               </p>
               <div className="mt-8">
-                <Link href="/sign-up">
-                  <Button size="lg">Get Started with BEUexamprep</Button>
+                <Link href="/notes">
+                  <Button size="lg">Explore Study Materials</Button>
                 </Link>
               </div>
             </div>

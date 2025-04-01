@@ -8,12 +8,18 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = await req.json();
+    const { name, email, password, secretCode } = await req.json();
 
-    console.log("Received Data:", { name, email, password });
+    console.log("Received Data:", { name, email, password, secretCode });
 
-    if (!name || !email || !password) {
-      return NextResponse.json({ success: false, message: "Missing fields" }, { status: 400 });
+    if (!name || !email || !password || !secretCode) {
+      return NextResponse.json({ success: false, message: "Missing fields including secret code" }, { status: 400 });
+    }
+
+    // Check secret code
+    const ADMIN_SECRET_CODE = process.env.ADMIN_SECRET_CODE || "BEU2024ADMIN";
+    if (secretCode !== ADMIN_SECRET_CODE) {
+      return NextResponse.json({ success: false, message: "Invalid secret code" }, { status: 401 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -23,6 +29,7 @@ export async function POST(req: Request) {
         name,
         email,
         password: hashedPassword,
+        role: "admin",
       },
     });
 

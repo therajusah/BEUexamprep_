@@ -18,6 +18,10 @@ const authSchema = (type: FormType) =>
         : z.string().optional(),
     email: z.string().email("Invalid email format"),
     password: z.string().min(6, "Password must be at least 6 characters long"),
+    secretCode:
+      type === "sign-up"
+        ? z.string().min(1, "Secret code is required")
+        : z.string().optional(),
   });
 
 const AuthForm = ({ type }: { type: FormType }) => {
@@ -27,7 +31,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const formSchema = authSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: "", email: "", password: "" },
+    defaultValues: { name: "", email: "", password: "", secretCode: "" },
   });
 
   const checkToken = () => {
@@ -87,7 +91,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           <h2 className="text-primary-100">BEUexamprep</h2>
         </div>
 
-        <h3 className="flex justify-center items-center">{isSignIn ? "Sign in to your account" : "Create your account"}</h3>
+        <h3 className="flex justify-center items-center">{isSignIn ? "Admin Sign In" : "Create Admin Account"}</h3>
 
         <Form {...form}>
           <form
@@ -119,23 +123,33 @@ const AuthForm = ({ type }: { type: FormType }) => {
               type="password"
             />
 
+            {!isSignIn && (
+              <FormField
+                control={form.control}
+                name="secretCode"
+                label="Admin Secret Code"
+                placeholder="Enter the admin secret code"
+                type="password"
+              />
+            )}
+
             <Button className="btn" type="submit" disabled={loading}>
               {loading
                 ? "Processing..."
                 : isSignIn
-                ? "Sign In"
-                : "Create an Account"}
+                ? "Admin Sign In"
+                : "Create Admin Account"}
             </Button>
           </form>
         </Form>
 
         <p className="text-center">
-          {isSignIn ? "No account yet?" : "Have an account already?"}
+          {isSignIn ? "Need to create admin account?" : "Already have admin account?"}
           <Link
             href={!isSignIn ? "/sign-in" : "/sign-up"}
             className="font-bold text-user-primary ml-1"
           >
-            {!isSignIn ? "Sign In" : "Sign Up"}
+            {!isSignIn ? "Admin Sign In" : "Create Admin Account"}
           </Link>
         </p>
       </div>
