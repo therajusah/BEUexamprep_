@@ -1,24 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../../../lib/prisma";
 
 export async function GET(req: NextRequest) {
-  const url = new URL(req.url);
-  const branch = url.searchParams.get("branch");
-  const semester = url.searchParams.get("semester");
-
   try {
-    const files = await prisma.pdfUpload.findMany({
-      where: {
-        branch: branch || undefined,
-        semester: semester || undefined,
-      },
-      orderBy: { uploaded_at: "desc" },
-    });
+    const { searchParams } = new URL(req.url);
+    const branch = searchParams.get('branch');
+    const semester = searchParams.get('semester');
+    const subject = searchParams.get('subject');
+
     
-    return NextResponse.json({ success: true, files });
+    const where: Record<string, unknown> = {};
+    if (branch) where.branch = branch;
+    if (semester) where.semester = semester;
+    if (subject) where.subject = { contains: subject, mode: 'insensitive' };
+
+    
+    const files = await prisma.pdfUpload.findMany({
+      where,
+      orderBy: { uploaded_at: 'desc' },
+      select: {
+        id: true,
+        filename: true,
+        file_url: true,
+        branch: true,
+        semester: true,
+        subject: true,
+        uploaded_at: true,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      files,
+      count: files.length,
+    });
+
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : "An unknown error occurred" }, { status: 500 });
+    console.error("Error fetching files:", error);
+    return NextResponse.json(
+      { 
+        success: false, 
+        error: error instanceof Error ? error.message : "Failed to fetch files" 
+      },
+      { status: 500 }
+    );
   }
 }

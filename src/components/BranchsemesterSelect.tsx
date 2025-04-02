@@ -21,32 +21,42 @@ interface Props {
 
 export default function BranchSemesterSelect({ branch, semester, onBranchChange, onSemesterChange }: Props) {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      <Select onValueChange={onBranchChange} value={branch}>
-        <SelectTrigger className="w-sm">
-          <SelectValue placeholder="Select Branch" />
-        </SelectTrigger>
-        <SelectContent >
-          {branches.map((b) => (
-            <SelectItem key={b} value={b}>
-              {b}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+    <div className="grid gap-6 md:grid-cols-2">
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          Branch *
+        </label>
+        <Select onValueChange={onBranchChange} value={branch}>
+          <SelectTrigger className="w-full h-12">
+            <SelectValue placeholder="Select Branch" />
+          </SelectTrigger>
+          <SelectContent className="z-50 max-h-[200px]">
+            {branches.map((b) => (
+              <SelectItem key={b} value={b} className="cursor-pointer">
+                {b}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
 
-      <Select onValueChange={onSemesterChange} value={semester}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select Semester" />
-        </SelectTrigger>
-        <SelectContent>
-          {semesters.map((s) => (
-            <SelectItem key={s} value={s}>
-              {s} Semester
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          Semester *
+        </label>
+        <Select onValueChange={onSemesterChange} value={semester}>
+          <SelectTrigger className="w-full h-12">
+            <SelectValue placeholder="Select Semester" />
+          </SelectTrigger>
+          <SelectContent className="z-40 max-h-[200px]">
+            {semesters.map((s) => (
+              <SelectItem key={s} value={s} className="cursor-pointer">
+                {s} Semester
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   )
 }

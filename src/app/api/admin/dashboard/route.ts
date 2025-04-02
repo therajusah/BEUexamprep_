@@ -1,47 +1,62 @@
-import { v2 as cloudinary } from "cloudinary";
-import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import {  NextResponse } from "next/server";
+import { prisma } from "../../../../lib/prisma";
 
-const prisma = new PrismaClient();
-
-cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true,
-});
-
-export async function POST(req: NextRequest) {
+export async function GET() {
   try {
-    const formData = await req.formData();
-    const file = formData.get("file") as File;
-    const branch = formData.get("branch") as string;
-    const semester = formData.get("semester") as string;
-    const subject = formData.get("subject") as string;
-
-    if (!file || !branch || !semester || !subject) {
-      return NextResponse.json({ error: "All fields are required" }, { status: 400 });
-    }
-
-    const buffer = await file.arrayBuffer();
-    const base64File = Buffer.from(buffer).toString("base64");
-
-    const uploadResult = await cloudinary.uploader.upload(`data:application/pdf;base64,${base64File}`, {
-      folder: "pdf_uploads",
-      resource_type: "raw",
-    });
-
-    const uploadedPdf = await prisma.pdfUpload.create({
-      data: {
-        file_url: uploadResult.secure_url,
-        branch,
-        semester,
-        subject,
+    // Get dashboard statistics
+    const totalUploads = await prisma.pdfUpload.count();
+    
+    // Get uploads by branch
+    const uploadsByBranch = await prisma.pdfUpload.groupBy({
+      by: ['branch'],
+      _count: {
+        id: true,
       },
     });
 
-    return NextResponse.json({ success: true, pdf: uploadedPdf });
+    // Get uploads by semester
+    const uploadsBySemester = await prisma.pdfUpload.groupBy({
+      by: ['semester'],
+      _count: {
+        id: true,
+      },
+    });
+
+    // Get recent uploads
+    const recentUploads = await prisma.pdfUpload.findMany({
+      orderBy: { uploaded_at: 'desc' },
+      take: 5,
+    });
+
+    // Format the data for the dashboard
+    const branchStats = uploadsByBranch.map(item => ({
+      branch: item.branch,
+      count: item._count.id,
+    }));
+
+    const semesterStats = uploadsBySemester.map(item => ({
+      semester: item.semester,
+      count: item._count.id,
+    }));
+
+    return NextResponse.json({
+      success: true,
+      data: {
+        totalUploads,
+        branchStats,
+        semesterStats,
+        recentUploads,
+      },
+    });
+
   } catch (error) {
-    return NextResponse.json({ status: 500, error: (error as Error).message });
+    console.error("Dashboard error:", error);
+    return NextResponse.json(
+      { 
+        success: false, 
+        error: error instanceof Error ? error.message : "Failed to fetch dashboard data" 
+      },
+      { status: 500 }
+    );
   }
 }

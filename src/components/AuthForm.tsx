@@ -13,13 +13,13 @@ import FormField from "./FormField";
 const authSchema = (type: FormType) =>
   z.object({
     name:
-      type === "sign-up"
+      type === "signup"
         ? z.string().min(3, "Name must be at least 3 characters")
         : z.string().optional(),
     email: z.string().email("Invalid email format"),
     password: z.string().min(6, "Password must be at least 6 characters long"),
     secretCode:
-      type === "sign-up"
+      type === "signup"
         ? z.string().min(1, "Secret code is required")
         : z.string().optional(),
   });
@@ -34,22 +34,21 @@ const AuthForm = ({ type }: { type: FormType }) => {
     defaultValues: { name: "", email: "", password: "", secretCode: "" },
   });
 
-  const checkToken = () => {
+  const setAuthToken = (token: string) => {
     if (typeof window !== "undefined") {
-      const token = localStorage.getItem("token");
-      if (token) {
-        router.push("/");
-      }
+      localStorage.setItem("token", token);
+      const expires = new Date();
+      expires.setDate(expires.getDate() + 7);
+      document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/; secure; samesite=strict`;
     }
   };
 
-  checkToken();
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setLoading(true);
     try {
       const response = await fetch(
         `/api/auth/${
-          type === "sign-up" ? "signup" : "signin"
+          type === "signup" ? "signup" : "signin"
         }`,
         {
           method: "POST",
@@ -65,13 +64,15 @@ const AuthForm = ({ type }: { type: FormType }) => {
         return;
       }
 
-      if (type === "sign-up") {
-        toast.success("Account created! Please sign in.");
-        router.push("/sign-in");
+      if (type === "signup") {
+        toast.success("Admin account created! Please sign in.");
+        router.push("/signin");
       } else {
         toast.success("Signed in successfully.");
-        localStorage.setItem("token", result.token);
-        router.push("/");
+        setAuthToken(result.token);
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectTo = urlParams.get('redirect') || '/dashboard';
+        router.push(redirectTo);
       }
     } catch (error) {
       toast.error(`Something went wrong. Please try again. ${String(error)}`);
@@ -80,78 +81,84 @@ const AuthForm = ({ type }: { type: FormType }) => {
     }
   };
 
-  
-
-  const isSignIn = type === "sign-in";
+  const isSignIn = type === "signin";
 
   return (
-    <div className="card-border lg:min-w-[566px]">
-      <div className="flex flex-col gap-6 card py-14 px-10">
-        <div className="flex flex-row gap-2 justify-center">
-          <h2 className="text-primary-100">BEUexamprep</h2>
-        </div>
+    <div className="w-full max-w-lg mx-auto">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-800 rounded-2xl border border-gray-700 shadow-2xl">
+        <div className={`${isSignIn ? 'p-10 space-y-6' : 'p-8 space-y-4'}`}>
+          {/* Header */}
+          <div className="text-center space-y-2">
+            <h2 className="text-2xl font-bold text-white">BEUexamprep</h2>
+            <h3 className="text-lg font-semibold text-gray-300">
+              {isSignIn ? "Admin Sign In" : "Create Admin Account"}
+            </h3>
+          </div>
 
-        <h3 className="flex justify-center items-center">{isSignIn ? "Admin Sign In" : "Create Admin Account"}</h3>
+          {/* Form */}
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className={`${isSignIn ? 'space-y-5' : 'space-y-4'}`}>
+              {!isSignIn && (
+                <FormField
+                  control={form.control}
+                  name="name"
+                  label="Name"
+                  placeholder="Your Name"
+                  type="text"
+                />
+              )}
 
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-6 mt-4 form"
-          >
-            {!isSignIn && (
               <FormField
                 control={form.control}
-                name="name"
-                label="Name"
-                placeholder="Your Name"
-                type="text"
+                name="email"
+                label="Email"
+                placeholder="Your email address"
+                type="email"
               />
-            )}
 
-            <FormField
-              control={form.control}
-              name="email"
-              label="Email"
-              placeholder="Your email address"
-              type="email"
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              label="Password"
-              placeholder="Enter your password"
-              type="password"
-            />
-
-            {!isSignIn && (
               <FormField
                 control={form.control}
-                name="secretCode"
-                label="Admin Secret Code"
-                placeholder="Enter the admin secret code"
+                name="password"
+                label="Password"
+                placeholder="Enter your password"
                 type="password"
               />
-            )}
 
-            <Button className="btn" type="submit" disabled={loading}>
-              {loading
-                ? "Processing..."
-                : isSignIn
-                ? "Admin Sign In"
-                : "Create Admin Account"}
-            </Button>
-          </form>
-        </Form>
+              {!isSignIn && (
+                <FormField
+                  control={form.control}
+                  name="secretCode"
+                  label="Admin Secret Code"
+                  placeholder="Enter the admin secret code"
+                  type="password"
+                />
+              )}
 
-        <p className="text-center">
-          {isSignIn ? "Need to create admin account?" : "Already have admin account?"}
-          <Link
-            href={!isSignIn ? "/sign-in" : "/sign-up"}
-            className="font-bold text-user-primary ml-1"
-          >
-            {!isSignIn ? "Admin Sign In" : "Create Admin Account"}
-          </Link>
-        </p>
+              <Button 
+                type="submit" 
+                disabled={loading}
+                className={`w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-600 hover:to-teal-500 text-white font-semibold rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${isSignIn ? 'py-4 px-6 text-lg mt-6' : 'py-3 px-5 text-base mt-4'}`}
+              >
+                {loading
+                  ? "Processing..."
+                  : isSignIn
+                  ? "Admin Sign In"
+                  : "Create Admin Account"}
+              </Button>
+            </form>
+          </Form>
+
+          {/* Footer Link */}
+          <div className={`text-center text-sm text-gray-400 ${isSignIn ? 'pt-4' : 'pt-2'}`}>
+            {isSignIn ? "Need to create admin account?" : "Already have admin account?"}
+            <Link
+              href={!isSignIn ? "/signin" : "/signup"}
+              className="font-semibold text-blue-400 hover:text-blue-300 ml-1 transition-colors"
+            >
+              {!isSignIn ? "Admin Sign In" : "Create Admin Account"}
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

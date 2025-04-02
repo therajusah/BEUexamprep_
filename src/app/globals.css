@@ -173,7 +173,7 @@
   }
 
   .card {
-    @apply dark-gradient rounded-2xl min-h-full;
+    @apply dark-gradient rounded-2xl min-h-fit;
   }
 
   .form {
@@ -232,11 +232,15 @@
   }
 
   .auth-layout {
-    @apply flex items-center justify-center mx-auto max-w-7xl min-h-screen max-sm:px-4 max-sm:py-8;
+    @apply flex items-center justify-center mx-auto max-w-7xl min-h-screen max-sm:px-4 py-8;
   }
 
   .root-layout {
     @apply flex mx-auto max-w-7xl flex-col gap-12 my-12 px-16 max-sm:px-4 max-sm:my-8;
+  }
+
+  .admin-layout {
+    @apply min-h-screen w-full;
   }
 
 }
