@@ -351,6 +351,43 @@ export default function AdminDashboard() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Recent Uploads Section */}
+        {dashboardData && dashboardData.recentUploads && dashboardData.recentUploads.length > 0 && (
+          <Card className="shadow-xl bg-white dark:bg-gray-800 mt-8">
+            <CardHeader>
+              <CardTitle className="text-xl font-bold flex items-center space-x-2">
+                <Activity className="h-5 w-5" />
+                <span>Recent Uploads</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {dashboardData.recentUploads.map((upload) => (
+                  <div
+                    key={upload.id}
+                    className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <FileText className="h-5 w-5 text-blue-500" />
+                      <div>
+                        <p className="font-medium text-gray-900 dark:text-white">
+                          {upload.filename}
+                        </p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {upload.subject} • {upload.branch} • Semester {upload.semester}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">
+                      {new Date(upload.uploaded_at).toLocaleDateString()}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </main>
     </div>
   );

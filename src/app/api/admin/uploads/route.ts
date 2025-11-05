@@ -1,6 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../../../../lib/prisma";
+import { verifyAuth, createUnauthorizedResponse } from "../../../../lib/auth";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -10,6 +11,12 @@ cloudinary.config({
 });
 
 export async function POST(req: NextRequest) {
+  // Verify authentication
+  const user = verifyAuth(req);
+  if (!user) {
+    return createUnauthorizedResponse();
+  }
+
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File;
@@ -149,6 +156,12 @@ export async function GET(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  // Verify authentication
+  const user = verifyAuth(req);
+  if (!user) {
+    return createUnauthorizedResponse();
+  }
+
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
