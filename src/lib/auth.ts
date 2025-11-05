@@ -6,6 +6,7 @@ const SECRET_KEY = process.env.JWT_SECRET || "7061";
 export interface JWTPayload {
   userId: string;
   email: string;
+  name: string;
   iat?: number;
   exp?: number;
 }

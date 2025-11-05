@@ -17,7 +17,7 @@ export const useAuth = () => {
   const checkAuth = useCallback(() => {
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("token");
-      
+
       if (!token) {
         setIsAuthenticated(false);
         setLoading(false);
@@ -25,19 +25,31 @@ export const useAuth = () => {
       }
 
       try {
+        // Decode JWT token to get admin data
         const payload = JSON.parse(atob(token.split('.')[1]));
-        
+
+        // Check if token is expired
         if (payload.exp && payload.exp < Date.now() / 1000) {
+          console.log("Token expired, clearing auth");
           clearAuth();
           return;
         }
 
+        // Verify this is an admin token
+        if (!payload.userId || !payload.email) {
+          console.error("Invalid token payload - missing required fields");
+          clearAuth();
+          return;
+        }
+
+        // Set admin data from JWT payload
         setAdminData({
           name: payload.name || "Admin",
           email: payload.email,
           id: payload.userId
         });
         setIsAuthenticated(true);
+        console.log("Admin authenticated:", payload.email);
       } catch (error) {
         console.error("Invalid token:", error);
         clearAuth();
