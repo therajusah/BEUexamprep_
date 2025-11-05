@@ -113,7 +113,7 @@ function AnimatedContainer({ className, delay = 0.1, children }: ViewAnimationPr
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-14 md:pt-0">
       {/* Hero Section */}
       <HeroSection
         title="Welcome to BEUexamprep"

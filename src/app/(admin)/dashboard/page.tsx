@@ -153,32 +153,32 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
       <header className="bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <BookOpen className="h-8 w-8 text-blue-600" />
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  BEUexamprep Admin
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="flex items-center space-x-1.5 sm:space-x-2">
+                <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
+                <h1 className="text-base sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
+                  BEUexamprep
                 </h1>
               </div>
-              <Badge variant="secondary" className="hidden sm:inline-flex">
-                Dashboard
+              <Badge variant="secondary" className="hidden sm:inline-flex text-xs">
+                Admin
               </Badge>
             </div>
 
-            <div className="flex items-center space-x-4">
-              <div className="hidden md:flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="hidden lg:flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
                 <User className="h-4 w-4" />
-                <span>Welcome, {adminData?.name}</span>
+                <span className="truncate max-w-[120px]">{ adminData?.name}</span>
               </div>
               <Button
                 onClick={logout}
                 variant="outline"
                 size="sm"
-                className="flex items-center space-x-2 hover:bg-red-50 hover:text-red-600 hover:border-red-300"
+                className="flex items-center space-x-1 sm:space-x-2 hover:bg-red-50 hover:text-red-600 hover:border-red-300 text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2"
               >
-                <LogOut className="h-4 w-4" />
+                <LogOut className="h-3 w-3 sm:h-4 sm:w-4" />
                 <span className="hidden sm:inline">Logout</span>
               </Button>
             </div>
@@ -186,10 +186,10 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-blue-100 text-sm font-medium">Total Uploads</p>

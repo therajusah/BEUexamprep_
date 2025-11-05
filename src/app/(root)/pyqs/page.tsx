@@ -120,11 +120,11 @@ export default function PYQsPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen pt-14 md:pt-0">
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 flex items-center justify-center">
+        <section className="w-full py-8 md:py-16 lg:py-24 flex items-center justify-center">
           <div className="container px-4 md:px-6">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl mb-8">
+            <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl mb-6 md:mb-8">
               Previous Year Questions (PYQs)
             </h1>
             

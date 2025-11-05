@@ -84,13 +84,13 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const isSignIn = type === "signin";
 
   return (
-    <div className="w-full max-w-lg mx-auto">
+    <div className="w-full max-w-lg mx-auto px-4 sm:px-0">
       <div className="bg-gradient-to-b from-gray-900 to-gray-800 rounded-2xl border border-gray-700 shadow-2xl">
-        <div className={`${isSignIn ? 'p-10 space-y-6' : 'p-8 space-y-4'}`}>
+        <div className={`${isSignIn ? 'p-6 sm:p-10 space-y-5 sm:space-y-6' : 'p-6 sm:p-8 space-y-3 sm:space-y-4'}`}>
           {/* Header */}
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl font-bold text-white">BEUexamprep</h2>
-            <h3 className="text-lg font-semibold text-gray-300">
+          <div className="text-center space-y-1 sm:space-y-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-white">BEUexamprep</h2>
+            <h3 className="text-base sm:text-lg font-semibold text-gray-300">
               {isSignIn ? "Admin Sign In" : "Create Admin Account"}
             </h3>
           </div>
