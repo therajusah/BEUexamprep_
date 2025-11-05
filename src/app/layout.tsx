@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Mona_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
-
-const monasans = Mona_Sans({
-  variable: "--font-mona-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "BEUexamprep - University Exam Preparation",
@@ -21,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${monasans.className} antialiased pattern`}>
+      <body className="font-sans antialiased pattern">
         <ConditionalLayout>{children}</ConditionalLayout>
         <Toaster />
       </body>
